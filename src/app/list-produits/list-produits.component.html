@@ -1,0 +1,100 @@
+<h2>Liste des produits</h2>
+
+<button class="btn btn-primary" (click)="iwanttoaddaproduct = !iwanttoaddaproduct" >Ajouter un produit</button>
+
+<div *ngIf="iwanttoaddaproduct"  class="row">
+    <div class="col-1"></div>
+    <form class="col-10 card" (ngSubmit)="addProduit()" [formGroup]="produitForm">
+      <div class="card-header col-12"><h4>Ajouter un produit</h4></div>
+      <div class="row">
+        <div class="form-group col-4">
+          <label>Nom</label>
+          <input
+            class="form-control"
+            formControlName="nom"
+          />
+          <div class="text-error" *ngIf="nomCtl.touched && nomCtl.hasError('required')">
+            Le nom est obligatoire
+          </div>
+        </div>
+        <div class="form-group col-4">
+          <label>Fournisseur</label>
+          <input
+            class="form-control"
+            formControlName="fournisseur"
+          />
+          <div class="text-error" *ngIf="fournisseurCtl.touched && fournisseurCtl.hasError('required')">
+            Le fournisseur est obligatoire
+          </div>
+        </div>
+        <div class="form-group col-4">
+          <label>Âge</label>
+          <input
+            class="form-control"
+            formControlName="age"
+          />
+          <div class="text-error" *ngIf="ageCtl.touched && ageCtl.hasError('required')">
+            L'âge est obligatoire
+          </div>
+          <div class="text-error" *ngIf="ageCtl.touched && ageCtl.hasError('pattern')">
+            L'âge n'est pas un nombre
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          class="form-control"
+          formControlName="description"
+        />
+        <div class="text-error" *ngIf="descriptionCtl.touched && descriptionCtl.hasError('required')">
+          La description est obligatoire
+        </div>
+      </div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="produitForm.invalid"
+      >
+        Créer le produit
+      </button>
+    </form>
+    <div class="col-1"></div>
+  </div>
+<div>
+  <div>
+    <table class="table table-striped" >
+      <thead>
+        <th scope="col">Nom</th>
+        <th scope="col">Description</th>
+        <th scope="col">Liste des ingrédients</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Action</th>
+      </thead>
+      <tbody>
+        <tr
+          scope="row"
+          *ngFor="let produit of (produits | keyvalue); even as isEven"
+          [style.color]="isEven ? 'red' : 'black'"
+          (click)="produitToDisplay = produit.value"
+          style="cursor: pointer"
+        >
+          <td>{{ produit.value.nom | uppercase }}</td>
+          <td>{{ produit.value.description | lowercase | slice:0:20  }}</td>
+          <td>
+            <p *ngFor="let ingredient of produit.value.ingredients" >
+              {{ingredient}},
+            </p>
+
+          </td>
+          <td>{{ produit.value.prix | number | euro}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="delete(produit.key)" >Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
