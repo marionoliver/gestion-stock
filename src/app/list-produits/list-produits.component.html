@@ -83,12 +83,7 @@
         >
           <td>{{ produit.value.nom | uppercase }}</td>
           <td>{{ produit.value.description | lowercase | slice:0:20  }}</td>
-          <td>
-            <p *ngFor="let ingredient of produit.value.ingredients" >
-              {{ingredient}},
-            </p>
-
-          </td>
+          <td>{{produit.value.ingredients}}</td>
           <td>{{ produit.value.prix | number | euro}}</td>
           <td>
             <button class="btn btn-danger" (click)="delete(produit.key)" >Supprimer</button>
