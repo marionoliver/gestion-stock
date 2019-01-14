@@ -1,7 +1,7 @@
 <h2>Liste des produits</h2>
 
 <button class="btn btn-primary" (click)="iwanttoaddaproduct = !iwanttoaddaproduct" >Ajouter un produit</button>
-
+<br/>
 <div *ngIf="iwanttoaddaproduct"  class="row">
     <div class="col-1"></div>
     <form class="col-10 card" (ngSubmit)="addProduit()" [formGroup]="produitForm">
@@ -62,6 +62,7 @@
     </form>
     <div class="col-1"></div>
   </div>
+  <br/>
 <div>
   <div>
     <table class="table table-striped" >

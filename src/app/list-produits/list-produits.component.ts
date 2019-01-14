@@ -48,14 +48,9 @@ export class ListProduitsComponent implements OnInit {
     this.produits = this.produitsService.list();
   }
 
-  delete(id) {
+  delete(id: number) {
     this.produitsService.delete(this.produits[id]);
   }
-
-  // mineur(age: number): String {
-  //   console.log(this.mineurPipe.transform(age));
-  //   return this.mineurPipe.transform(age);
-  // }
 
   addProduit() {
     const produit = new Produit(
